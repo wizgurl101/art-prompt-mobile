@@ -1,1 +1,1 @@
-# art-prompt-mobile
+# Art Prompt Mobile
