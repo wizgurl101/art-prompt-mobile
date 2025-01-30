@@ -1,5 +1,13 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+
+import LoginScreen from "./screens/LoginScreen";
+import PromptScreen from "./screens/PromptScreen";
+import { Colors } from "./constants/styles";
+
+const Stack = createNativeStackNavigator();
 
 function AuthStack() {
   return (
@@ -15,6 +23,20 @@ function AuthStack() {
   );
 }
 
+function AuthenticatedStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: Colors.primary500 },
+        headerTintColor: "white",
+        contentStyle: { backgroundColor: Colors.primary100 },
+      }}
+    >
+      <Stack.Screen name="Prompt" component={PromptScreen} />
+    </Stack.Navigator>
+  );
+}
+
 function Navigation() {
   return (
     <NavigationContainer>
@@ -26,8 +48,8 @@ function Navigation() {
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
+      <Navigation />
     </View>
   );
 }

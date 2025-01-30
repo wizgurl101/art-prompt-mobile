@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
 
-import FlatButton from "../ui/FlatButton";
+import FlatButton from "../components/Buttons/FlatButton";
 import AuthForm from "./AuthForm";
-import { Colors } from "../../constants/styles";
+import { Colors } from "../constants/styles";
 
 function AuthContent({ isLogin, onAuthenticate }) {
   const [credentialsInvalid, setCredentialsInvalid] = useState({
