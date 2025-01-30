@@ -1,4 +1,4 @@
-import AuthContent from "../components/Auth/AuthContent";
+import AuthContent from "../auth/AuthContent";
 
 function LoginScreen() {
   return <AuthContent isLogin />;
