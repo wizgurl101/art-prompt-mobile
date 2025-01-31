@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Alert } from "react-native";
 
 import AuthContent from "./auth/AuthContent";
-import LoadingOverlay from "../../components/ui/LoadingOverlay";
+import LoadingOverlay from "../../components/LoadingOverlay";
 import { login } from "../../services/api.service";
 
 function LoginScreen() {

@@ -20,8 +20,11 @@ function AuthContent({ isLogin, onAuthenticate }) {
     const emailIsValid = email.includes("@");
     const passwordIsValid = password.length > 1;
 
-    if (!emailIsValid || !passwordIsValid || !isLogin) {
-      Alert.alert("Invalid input", "Please check your entered credentials.");
+    if (!emailIsValid || !passwordIsValid) {
+      Alert.alert(
+        "Invalid input",
+        "Please check your entered email or password."
+      );
       setCredentialsInvalid({
         email: !emailIsValid,
         password: !passwordIsValid,
