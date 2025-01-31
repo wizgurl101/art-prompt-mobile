@@ -1,19 +1,15 @@
 import { useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View, Text } from "react-native";
 
-import FlatButton from "../components/Buttons/FlatButton";
-import AuthForm from "./AuthForm";
-import { Colors } from "../constants/styles";
+import LoginForm from "./LoginForm";
+import { Colors } from "../../../constants/styles";
 
 function AuthContent({ isLogin, onAuthenticate }) {
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
     password: false,
   });
-
-  function switchAuthModeHandler() {
-    // Todo
-  }
 
   function submitHandler(credentials) {
     let { email, password } = credentials;
@@ -22,7 +18,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
     password = password.trim();
 
     const emailIsValid = email.includes("@");
-    const passwordIsValid = password.length > 6;
+    const passwordIsValid = password.length > 1;
 
     if (!emailIsValid || !passwordIsValid || !isLogin) {
       Alert.alert("Invalid input", "Please check your entered credentials.");
@@ -36,29 +32,39 @@ function AuthContent({ isLogin, onAuthenticate }) {
   }
 
   return (
-    <View style={styles.authContent}>
-      <AuthForm
-        isLogin={isLogin}
-        onSubmit={submitHandler}
-        credentialsInvalid={credentialsInvalid}
-      />
-      <View style={styles.buttons}>
-        <FlatButton onPress={switchAuthModeHandler}>
-          {isLogin ? "" : "Log in instead"}
-        </FlatButton>
+    <>
+      <View style={styles.title}>
+        <Text style={styles.titleText}>Art Prompt</Text>
       </View>
-    </View>
+      <View style={styles.login}>
+        <LoginForm
+          isLogin={isLogin}
+          onSubmit={submitHandler}
+          credentialsInvalid={credentialsInvalid}
+        />
+      </View>
+    </>
   );
 }
 
 export default AuthContent;
 
 const styles = StyleSheet.create({
-  authContent: {
+  title: {
     marginTop: 64,
     marginHorizontal: 32,
+  },
+  titleText: {
+    fontSize: 42,
+    fontWeight: "bold",
+    color: Colors.primary800,
+    marginHorizontal: 92,
+  },
+  login: {
+    marginTop: 45,
+    marginHorizontal: 32,
     padding: 16,
-    borderRadius: 8,
+    borderRadius: 6,
     backgroundColor: Colors.primary800,
     elevation: 2,
     shadowColor: "black",

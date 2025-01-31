@@ -1,7 +1,8 @@
+import { LOGIN_URL } from "@env";
 import axios from "axios";
 
 async function authenticate(email, password) {
-  const url = `http://localhost:5000/login`;
+  const url = `${LOGIN_URL}`;
 
   const response = await axios.post(url, {
     email: email,
@@ -11,10 +12,6 @@ async function authenticate(email, password) {
   return response.data.idToken;
 }
 
-export async function createUser(email, password) {
-  await authenticate("signUp", email, password);
-}
-
 export async function login(email, password) {
-  await authenticate("signInWithPassword", email, password);
+  await authenticate(email, password);
 }
