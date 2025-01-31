@@ -5,6 +5,8 @@ import { StatusBar } from "expo-status-bar";
 import LoginScreen from "./screens/Login";
 import PromptScreen from "./screens/Prompt";
 import { Colors } from "./constants/styles";
+import AuthContextProvider, { AuthContext } from "./contexts/auth.context";
+import { useContext } from "react";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,15 +33,17 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      <Stack.Screen name="Prompt" component={PromptScreen} />
+      <Stack.Screen name="Welcome" component={PromptScreen} />
     </Stack.Navigator>
   );
 }
 
 function Navigation() {
+  const authCtx = useContext(AuthContext);
+
   return (
     <NavigationContainer>
-      <AuthStack />
+      {!authCtx.isAuthenticated ? <AuthStack /> : <AuthenticatedStack />}
     </NavigationContainer>
   );
 }

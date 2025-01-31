@@ -13,7 +13,7 @@ function LoginScreen() {
     try {
       await login(email, password);
     } catch (error) {
-      Alert.alert("Authentication failed!");
+      Alert.alert("Unable to log in");
     }
     setIsAuthenticating(false);
   }
