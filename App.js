@@ -7,7 +7,6 @@ import LoginScreen from "./screens/Login";
 import PromptScreen from "./screens/Prompt";
 import { Colors } from "./constants/styles";
 import AuthContextProvider, { AuthContext } from "./contexts/auth.context";
-import IconButton from "./components/Buttons/IconButton";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,8 +25,6 @@ function PublicStack() {
 }
 
 function PrivateStack() {
-  const authCtx = useContext(AuthContext);
-
   return (
     <Stack.Navigator
       screenOptions={{
@@ -36,22 +33,7 @@ function PrivateStack() {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      <Stack.Screen
-        name="Hello :)"
-        component={PromptScreen}
-        options={() => {
-          return {
-            headerRight: () => (
-              <IconButton
-                icon="log-out"
-                color="white"
-                size={24}
-                onPress={authCtx.logout}
-              />
-            ),
-          };
-        }}
-      />
+      <Stack.Screen name="Hello :)" component={PromptScreen} />
     </Stack.Navigator>
   );
 }
