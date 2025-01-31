@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import LoginScreen from "./screens/LoginScreen";
 import PromptScreen from "./screens/PromptScreen";
@@ -47,10 +47,10 @@ function Navigation() {
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <>
       <StatusBar style="light" />
       <Navigation />
-    </View>
+    </>
   );
 }
 
