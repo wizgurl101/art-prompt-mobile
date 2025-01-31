@@ -10,7 +10,7 @@ import { useContext } from "react";
 
 const Stack = createNativeStackNavigator();
 
-function AuthStack() {
+function PublicStack() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -24,7 +24,7 @@ function AuthStack() {
   );
 }
 
-function AuthenticatedStack() {
+function PrivateStack() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -43,7 +43,7 @@ function Navigation() {
 
   return (
     <NavigationContainer>
-      {!authCtx.isAuthenticated ? <AuthStack /> : <AuthenticatedStack />}
+      {authCtx.isAuthenticated ? <PrivateStack /> : <PublicStack />}
     </NavigationContainer>
   );
 }
