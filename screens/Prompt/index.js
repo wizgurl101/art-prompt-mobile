@@ -1,13 +1,27 @@
 import { StyleSheet, Text, View } from "react-native";
 import IconButton from "../../components/Buttons/IconButton";
-import { useContext } from "react";
-import { AuthContent } from "../../contexts/auth.context";
+import { useContext, useLayoutEffect } from "react";
+import { AuthContext } from "../../contexts/auth.context";
 
-function PromptScreen() {
+function PromptScreen({ navigation }) {
+  const authCtx = useContext(AuthContext);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          icon="logout"
+          color="white"
+          size={24}
+          onPress={authCtx.logout}
+        />
+      ),
+    });
+  }, [navigation, authCtx]);
+
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>Prompt Screen</Text>
-      <Text>Authenticated was successfully!</Text>
+      <Text style={styles.title}>Art Prompt of the Day</Text>
     </View>
   );
 }
