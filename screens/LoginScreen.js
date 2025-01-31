@@ -35,25 +35,39 @@ function LoginScreen({ isLogin, onAuthenticate }) {
   }
 
   return (
-    <View style={styles.authContent}>
-      <Text style={{ color: Colors.primary100 }}>Art Prompt</Text>
-      <AuthForm
-        isLogin={isLogin}
-        onSubmit={submitHandler}
-        credentialsInvalid={credentialsInvalid}
-      />
-    </View>
+    <>
+      <View style={styles.title}>
+        <Text style={styles.titleText}>Art Prompt</Text>
+      </View>
+      <View style={styles.login}>
+        <AuthForm
+          isLogin={isLogin}
+          onSubmit={submitHandler}
+          credentialsInvalid={credentialsInvalid}
+        />
+      </View>
+    </>
   );
 }
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  authContent: {
+  title: {
     marginTop: 64,
     marginHorizontal: 32,
+  },
+  titleText: {
+    fontSize: 42,
+    fontWeight: "bold",
+    color: Colors.primary800,
+    marginHorizontal: 92,
+  },
+  login: {
+    marginTop: 45,
+    marginHorizontal: 32,
     padding: 16,
-    borderRadius: 8,
+    borderRadius: 6,
     backgroundColor: Colors.primary800,
     elevation: 2,
     shadowColor: "black",
