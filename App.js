@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
@@ -6,7 +7,6 @@ import LoginScreen from "./screens/Login";
 import PromptScreen from "./screens/Prompt";
 import { Colors } from "./constants/styles";
 import AuthContextProvider, { AuthContext } from "./contexts/auth.context";
-import { useContext } from "react";
 
 const Stack = createNativeStackNavigator();
 
@@ -52,7 +52,9 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <Navigation />
+      <AuthContextProvider>
+        <Navigation />
+      </AuthContextProvider>
     </>
   );
 }
