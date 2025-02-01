@@ -19,7 +19,7 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 6,
+    borderRadius: 8,
     paddingVertical: 6,
     paddingHorizontal: 12,
     backgroundColor: Colors.primary500,
@@ -37,5 +37,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+    padding: 2,
   },
 });

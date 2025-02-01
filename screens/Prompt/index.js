@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import IconButton from "../../components/Buttons/IconButton";
 import { useContext, useLayoutEffect } from "react";
 import { AuthContext } from "../../contexts/auth.context";
+import { Colors } from "../../constants/styles";
 
 function PromptScreen({ navigation }) {
   const authCtx = useContext(AuthContext);
@@ -11,7 +12,7 @@ function PromptScreen({ navigation }) {
       headerRight: () => (
         <IconButton
           icon="logout"
-          color="white"
+          color={Colors.primary800}
           size={24}
           onPress={authCtx.logout}
         />
