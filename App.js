@@ -14,12 +14,14 @@ function PublicStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.primary500 },
+        headerShadowVisible: false,
+        headerStyle: { backgroundColor: Colors.primary100 },
         headerTintColor: "white",
+        headerTitleStyle: { color: Colors.primary800, fontSize: 16 },
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      <Stack.Screen name="Art Prompt" component={LoginScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
     </Stack.Navigator>
   );
 }
@@ -28,8 +30,9 @@ function PrivateStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.primary500 },
+        headerStyle: { backgroundColor: Colors.primary100 },
         headerTintColor: "white",
+        headerTitleStyle: { color: Colors.primary800, fontSize: 16 },
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >

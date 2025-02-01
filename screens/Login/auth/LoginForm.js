@@ -30,7 +30,7 @@ function LoginForm({ onSubmit, credentialsInvalid }) {
   }
 
   return (
-    <View style={styles.form}>
+    <View>
       <View>
         <Input
           label="Email"
@@ -47,7 +47,7 @@ function LoginForm({ onSubmit, credentialsInvalid }) {
           isInvalid={passwordIsInvalid}
         />
         <View style={styles.buttons}>
-          <Button onPress={submitHandler}>Log In</Button>
+          <Button onPress={submitHandler}>Login</Button>
         </View>
       </View>
     </View>
