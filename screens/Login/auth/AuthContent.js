@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { Alert, StyleSheet, View, Text, Image } from "react-native";
+import { Alert, StyleSheet, View, Image } from "react-native";
 
 import LoginForm from "./LoginForm";
 import { Colors } from "../../../constants/styles";
 
 function AuthContent({ isLogin, onAuthenticate }) {
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
     password: false,
   });
 
-  function submitHandler(credentials) {
+  async function submitHandler(credentials) {
     let { email, password } = credentials;
 
     email = email.trim();
@@ -31,7 +30,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
       });
       return;
     }
-    onAuthenticate({ email, password });
+    await onAuthenticate({ email, password });
   }
 
   return (

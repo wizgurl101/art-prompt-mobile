@@ -1,10 +1,13 @@
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+
 import IconButton from "../../components/Buttons/IconButton";
-import { useContext, useLayoutEffect } from "react";
 import { AuthContext } from "../../contexts/auth.context";
 import { Colors } from "../../constants/styles";
+import { getPrompt } from "../../services/api.service";
 
 function PromptScreen({ navigation }) {
+  const [prompt, setPrompt] = useState("");
   const authCtx = useContext(AuthContext);
 
   useLayoutEffect(() => {
@@ -20,9 +23,24 @@ function PromptScreen({ navigation }) {
     });
   }, [navigation, authCtx]);
 
+  useEffect(() => {
+    const fetchPrompt = async () => {
+      try {
+        const prompt = await getPrompt(authCtx.token);
+        setPrompt(prompt);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchPrompt();
+  }, [authCtx.token]);
+
+  const drawPrompt = `Draw ${prompt.toLowerCase()}`;
+
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>Art Prompt of the Day</Text>
+      <Text style={styles.title}>{drawPrompt}</Text>
     </View>
   );
 }

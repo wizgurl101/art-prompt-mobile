@@ -12,5 +12,17 @@ async function authenticate(email, password) {
 }
 
 export async function login(email, password) {
-  await authenticate(email, password);
+  return await authenticate(email, password);
+}
+
+export async function getPrompt(token) {
+  const url = "http://192.168.1.67:5000/prompt";
+
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data.art_prompt;
 }
