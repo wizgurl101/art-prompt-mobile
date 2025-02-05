@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Alert, StyleSheet, View, Text, Image } from "react-native";
+import { Alert, StyleSheet, View, Image } from "react-native";
 
 import LoginForm from "./LoginForm";
 import { Colors } from "../../../constants/styles";
 
 function AuthContent({ isLogin, onAuthenticate }) {
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
     password: false,
