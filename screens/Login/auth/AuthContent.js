@@ -10,7 +10,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
     password: false,
   });
 
-  function submitHandler(credentials) {
+  async function submitHandler(credentials) {
     let { email, password } = credentials;
 
     email = email.trim();
@@ -30,7 +30,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
       });
       return;
     }
-    onAuthenticate({ email, password });
+    await onAuthenticate({ email, password });
   }
 
   return (
