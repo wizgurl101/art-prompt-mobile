@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Alert, StyleSheet, View, Image } from "react-native";
+import { Alert, StyleSheet, View, Image, Text } from "react-native";
 
 import LoginForm from "./LoginForm";
 import { Colors } from "../../../constants/styles";
 
-function AuthContent({ isLogin, onAuthenticate }) {
+function AuthContent({message, onAuthenticate }) {
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
     password: false,
@@ -44,10 +44,10 @@ function AuthContent({ isLogin, onAuthenticate }) {
       </View>
       <View style={styles.login}>
         <LoginForm
-          isLogin={isLogin}
           onSubmit={submitHandler}
           credentialsInvalid={credentialsInvalid}
         />
+        <Text style={styles.message}>{message}</Text>
       </View>
     </>
   );
@@ -68,6 +68,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary100,
   },
   buttons: {
+    marginTop: 8,
+  },
+  message: {
+    textAlign: "center",
+    color: Colors.primary500,
     marginTop: 8,
   },
 });

@@ -8,6 +8,7 @@ import { getPrompt } from "../../services/api.service";
 
 function PromptScreen({ navigation }) {
   const [prompt, setPrompt] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const authCtx = useContext(AuthContext);
 
   useLayoutEffect(() => {
@@ -25,12 +26,15 @@ function PromptScreen({ navigation }) {
 
   useEffect(() => {
     const fetchPrompt = async () => {
+      setIsLoading(true);
       try {
         const prompt = await getPrompt(authCtx.token);
         setPrompt(prompt);
       } catch (error) {
         console.log(error);
       }
+
+      setIsLoading(false);
     };
 
     fetchPrompt();
@@ -40,7 +44,7 @@ function PromptScreen({ navigation }) {
 
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>{drawPrompt}</Text>
+      {isLoading ? <Text>Loading...</Text> : <Text style={styles.title}>{drawPrompt}</Text>}
     </View>
   );
 }
