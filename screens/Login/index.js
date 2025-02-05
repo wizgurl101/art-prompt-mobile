@@ -8,6 +8,7 @@ import { AuthContext } from "../../contexts/auth.context";
 
 function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [message, setMessage] = useState("");
 
   const authCtx = useContext(AuthContext);
 
@@ -17,7 +18,7 @@ function LoginScreen() {
       const token = await login(email, password);
       await authCtx.authenticate(token);
     } catch (error) {
-      Alert.alert("Unable to log in");
+      setMessage("Unable to log in")
       setIsAuthenticating(false);
     }
   }
@@ -26,7 +27,7 @@ function LoginScreen() {
     return <LoadingOverlay message="Logging you in..." />;
   }
 
-  return <AuthContent isLogin onAuthenticate={loginHandler} />;
+  return <AuthContent message={message} onAuthenticate={loginHandler} />;
 }
 
 export default LoginScreen;
