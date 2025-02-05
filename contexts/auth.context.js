@@ -4,7 +4,7 @@ import SInfo from "react-native-sensitive-info";
 export const AuthContext = createContext({
   token: "",
   isAuthenticated: false,
-  authenticate: (token) => {},
+  authenticate: async (token) => {},
   logout: () => {},
 });
 

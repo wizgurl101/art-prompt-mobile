@@ -12,7 +12,7 @@ async function authenticate(email, password) {
 }
 
 export async function login(email, password) {
-  await authenticate(email, password);
+  return await authenticate(email, password);
 }
 
 export async function getPrompt(token) {
@@ -23,9 +23,6 @@ export async function getPrompt(token) {
       Authorization: `Bearer ${token}`,
     },
   });
-
-  console.log(JSON.stringify(response));
-  console.log(response.data.art_prompt);
 
   return response.data.art_prompt;
 }
