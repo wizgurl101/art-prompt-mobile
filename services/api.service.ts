@@ -8,7 +8,7 @@ async function authenticate(email, password) {
     password: password,
   });
 
-  return response.data.token;
+  return response.data;
 }
 
 export async function login(email, password) {
@@ -16,13 +16,19 @@ export async function login(email, password) {
 }
 
 export async function getPrompt(token) {
+  const default_prompt = "a tree";
   const url = "http://192.168.1.67:5000/prompt";
 
-  const response = await axios.get(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  return response.data.art_prompt;
+    return response.data.art_prompt;
+  } catch (error) {
+    console.error(error);
+    return default_prompt;
+  }
 }

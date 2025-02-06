@@ -3,6 +3,7 @@ import SInfo from "react-native-sensitive-info";
 
 export const AuthContext = createContext({
   token: "",
+  userId: "",
   isAuthenticated: false,
   authenticate: async (token) => {},
   logout: () => {},
@@ -10,44 +11,53 @@ export const AuthContext = createContext({
 
 function AuthContextProvider({ children }) {
   const [authToken, setAuthToken] = useState("");
+  const [userId, setUserId] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const storageToken = "authToken";
+  const storageTokenName = "authToken";
+  const storageUserIdName = "userId";
 
   useEffect(() => {
-    const getTokenFromStorage = async () => {
-      const token = await SInfo.getItem(storageToken, {});
+    const getItemsFromStorage = async () => {
+      const storedToken = await SInfo.getItem(storageTokenName, {});
+      const storedUserId = await SInfo.getItem(storageUserIdName, {});
 
-      if (token) {
-        setAuthToken(token);
+      if (storedToken && storedUserId) {
+        setAuthToken(storedToken);
+        setUserId(storedUserId);
         setIsAuthenticated(true);
       }
     };
 
-    getTokenFromStorage();
+    getItemsFromStorage();
   }, []);
 
-  const setTokenToStorage = async (token) => {
-    return SInfo.setItem(storageToken, token, {});
+  const setItemToStorage = async (name, value) => {
+    return SInfo.setItem(name, value, {});
   };
 
-  const deleteTokenFromStorage = async () => {
-    return SInfo.deleteItem(storageToken, {});
+  const deleteItemFromStorage = async (name) => {
+    return SInfo.deleteItem(name, {});
   };
 
-  async function authenticate(token) {
+  async function authenticate(token, userId) {
     setAuthToken(token);
+    setUserId(userId);
     setIsAuthenticated(true);
-    await setTokenToStorage(token);
+    await setItemToStorage(storageTokenName, token);
+    await setItemToStorage(storageUserIdName, userId);
   }
 
   async function logout() {
     setAuthToken("");
+    setUserId("");
     setIsAuthenticated(false);
-    await deleteTokenFromStorage();
+    await deleteItemFromStorage(storageTokenName);
+    await deleteItemFromStorage(storageUserIdName);
   }
 
   const value = {
     token: authToken,
+    userId: userId,
     isAuthenticated: isAuthenticated,
     authenticate: authenticate,
     logout: logout,

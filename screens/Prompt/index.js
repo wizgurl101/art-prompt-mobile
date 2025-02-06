@@ -44,7 +44,11 @@ function PromptScreen({ navigation }) {
 
   return (
     <View style={styles.rootContainer}>
-      {isLoading ? <Text>Loading...</Text> : <Text style={styles.title}>{drawPrompt}</Text>}
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <Text style={styles.title}>{drawPrompt}</Text>
+      )}
     </View>
   );
 }

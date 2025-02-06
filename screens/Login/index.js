@@ -15,10 +15,10 @@ function LoginScreen() {
   async function loginHandler({ email, password }) {
     setIsAuthenticating(true);
     try {
-      const token = await login(email, password);
-      await authCtx.authenticate(token);
+      const response = await login(email, password);
+      await authCtx.authenticate(response.token, response.userId);
     } catch (error) {
-      setMessage("Unable to log in")
+      setMessage("Unable to log in");
       setIsAuthenticating(false);
     }
   }
