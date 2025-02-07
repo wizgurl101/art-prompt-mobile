@@ -5,10 +5,13 @@ import IconButton from "../../components/Buttons/IconButton";
 import { AuthContext } from "../../contexts/auth.context";
 import { Colors } from "../../constants/styles";
 import { getPrompt } from "../../services/api.service";
+import CameraScreen from "./camera/Camera";
+import ImageButton from "../../components/Buttons/ImageButton";
 
 function PromptScreen({ navigation }) {
   const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showCamera, setShowCamera] = useState(false);
   const authCtx = useContext(AuthContext);
 
   useLayoutEffect(() => {
@@ -42,29 +45,47 @@ function PromptScreen({ navigation }) {
 
   const drawPrompt = `Draw ${prompt.toLowerCase()}`;
 
+  const handleOpenCamera = () => {
+    console.log("Open camera");
+  };
+
   return (
-    <View style={styles.rootContainer}>
-      {isLoading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <Text style={styles.title}>{drawPrompt}</Text>
-      )}
-    </View>
+    <>
+      <View style={styles.promptContainer}>
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <Text style={styles.title}>{drawPrompt}</Text>
+        )}
+      </View>
+      <View style={styles.buttonContainer}>
+        <ImageButton
+          imageUrl={require("../../assets/camera.png")}
+          onPress={handleOpenCamera}
+        />
+      </View>
+    </>
   );
 }
 
 export default PromptScreen;
 
 const styles = StyleSheet.create({
-  rootContainer: {
+  promptContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 32,
+    marginTop: 50,
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 8,
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 200,
   },
 });
