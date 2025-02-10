@@ -55,11 +55,11 @@ function Navigation() {
 
 export default function App() {
     return (
-    <>
-      <StatusBar style="light" />
-      <AuthContextProvider>
-        <Navigation />
-      </AuthContextProvider>
-    </>
-  );
+        <>
+            <StatusBar style="light" />
+            <AuthContextProvider>
+                <Navigation />
+            </AuthContextProvider>
+        </>
+    )
 }

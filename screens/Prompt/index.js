@@ -38,7 +38,7 @@ function PromptScreen({ navigation }) {
       setIsLoading(false);
     };
 
-    fetchPrompt();
+    fetchPrompt().then(() => {});
   }, [authCtx.token]);
 
   const drawPrompt = `Draw ${prompt.toLowerCase()}`;
@@ -77,9 +77,9 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
-    fontFamily: 'FrederickatheGreat',
+    fontFamily: 'monospace',
   },
   buttonContainer: {
     flex: 1,
