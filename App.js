@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
@@ -54,7 +54,7 @@ function Navigation() {
 }
 
 export default function App() {
-  return (
+    return (
     <>
       <StatusBar style="light" />
       <AuthContextProvider>

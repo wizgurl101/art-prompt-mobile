@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
+    fontFamily: 'FrederickatheGreat',
   },
   buttonContainer: {
     flex: 1,
