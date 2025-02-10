@@ -44,7 +44,6 @@ function PromptScreen({ navigation }) {
   const drawPrompt = `Draw ${prompt.toLowerCase()}`;
 
   const handleOpenCamera = () => {
-    console.log("Open camera");
     navigation.navigate("Camera");
   };
 
