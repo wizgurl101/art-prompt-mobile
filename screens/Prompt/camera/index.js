@@ -1,5 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Button,
+} from "react-native";
 import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 
@@ -11,7 +18,7 @@ export default function CameraScreen() {
     return <View />;
   }
 
-  if (!permission.granted) {
+  if (!hasCameraPermission.granted) {
     return (
       <View style={styles.container}>
         <Text style={styles.message}>
@@ -27,15 +34,13 @@ export default function CameraScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <CameraView style={styles.camera} facing={cameraFacing} mode="picture">
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-        </View>
-      </CameraView>
-    </View>
+    <CameraView style={styles.camera} facing={cameraFacing} mode="picture">
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+          <Text style={styles.text}>Flip Camera</Text>
+        </TouchableOpacity>
+      </View>
+    </CameraView>
   );
 }
 

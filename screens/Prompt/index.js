@@ -5,13 +5,11 @@ import IconButton from "../../components/Buttons/IconButton";
 import { AuthContext } from "../../contexts/auth.context";
 import { Colors } from "../../constants/styles";
 import { getPrompt } from "../../services/api.service";
-import CameraScreen from "./camera/Camera";
 import ImageButton from "../../components/Buttons/ImageButton";
 
 function PromptScreen({ navigation }) {
   const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showCamera, setShowCamera] = useState(false);
   const authCtx = useContext(AuthContext);
 
   useLayoutEffect(() => {
@@ -47,6 +45,7 @@ function PromptScreen({ navigation }) {
 
   const handleOpenCamera = () => {
     console.log("Open camera");
+    navigation.navigate("Camera");
   };
 
   return (
