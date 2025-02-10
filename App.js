@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 
 import LoginScreen from "./screens/Login";
 import PromptScreen from "./screens/Prompt";
+import CameraScreen from "./screens/Prompt/camera";
 import { Colors } from "./constants/styles";
 import AuthContextProvider, { AuthContext } from "./contexts/auth.context";
 
@@ -37,6 +38,7 @@ function PrivateStack() {
       }}
     >
       <Stack.Screen name="Hello :)" component={PromptScreen} />
+        <Stack.Screen name="Camera" component={CameraScreen} />
     </Stack.Navigator>
   );
 }
