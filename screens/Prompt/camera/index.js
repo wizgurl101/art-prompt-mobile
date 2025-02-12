@@ -15,39 +15,32 @@ import * as MediaLibrary from "expo-media-library";
 export default function CameraScreen() {
   const [hasCameraPermission, setHasCameraPermission] = useCameraPermissions();
   const [cameraFacing, setCameraFacing] = useState("back");
-  const [mediaLibraryPermission, setMediaLibraryPermission] = useState()
+  const [mediaPermissionResponse, mediaRequestPermission] = MediaLibrary.usePermissions()
   const [photo, setPhoto] = useState()
   let cameraRef = useRef(null);
 
-  useEffect(() => {
-    (async () => {
-      const mediaPermission = await MediaLibrary.requestPermissionsAsync()
-
-      setMediaLibraryPermission(mediaPermission.status === "granted")
-    })()
-  },[])
-
-  if (hasCameraPermission.granted === null) {
-    return (
-        <View style={styles.container}>
-          <Text style={styles.message}>
-            We need your permission to show the camera
-          </Text>
-          <Button onPress={setHasCameraPermission} title="grant permission" />
-        </View>
-    );
+  async function requestMediaLibraryPermission() {
+    if(mediaPermissionResponse.status !== "granted") {
+      await mediaRequestPermission()
+    }
   }
 
-  if(mediaLibraryPermission === undefined) {
-    return (
-        <View style={styles.container}>
-          <Text style={styles.message}>
-            We need your permission to access your photos. Please change in settings.
-          </Text>
-        </View>
-    )
-  }
+ useEffect(() => {
+   (async () => {
+     await requestMediaLibraryPermission()
+   })()
+ }, [])
 
+  // if (!hasCameraPermission.granted) {
+  //   return (
+  //       <View style={styles.container}>
+  //         <Text style={styles.message}>
+  //           We need your permission to show the camera
+  //         </Text>
+  //         <Button onPress={setHasCameraPermission} title="grant permission" />
+  //       </View>
+  //   );
+  // }
 
   function toggleCameraFacing() {
     setCameraFacing((current) => (current === "back" ? "front" : "back"));
@@ -61,7 +54,8 @@ export default function CameraScreen() {
       }
 
     const newPhoto = await cameraRef.current.takePictureAsync(options);
-    setPhoto(newPhoto)
+    console.log(JSON.stringify(newPhoto))
+      setPhoto(newPhoto)
   };
 
   if(photo) {
@@ -78,7 +72,7 @@ export default function CameraScreen() {
         <SafeAreaView>
           <Image style={styles.preview} source={{ uri: photo.uri }} />
           <View style={styles.btnContainer}>
-            {mediaLibraryPermission ? (
+            {mediaRequestPermission === 'granted' ? (
                 <TouchableOpacity style={styles.btn} onPress={savePhoto}>
                   <Text>Save</Text>
                 </TouchableOpacity>
