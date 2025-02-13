@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 
 import LoginScreen from "./screens/Login";
 import PromptScreen from "./screens/Prompt";
-import CameraScreen from "./screens/Prompt/camera";
+import CameraScreen from "./screens/Camera";
 import { Colors } from "./constants/styles";
 import AuthContextProvider, { AuthContext } from "./contexts/auth.context";
 
