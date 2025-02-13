@@ -7,15 +7,18 @@ import {
   StyleSheet,
   Button,
 } from "react-native";
-import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
+import { CameraView, useCameraPermissions } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
-import IconButton from "../../components/Buttons/IconButton";
+import {MaterialCommunityIcons, FontAwesome5} from "@expo/vector-icons";
 import {Colors} from "../../constants/styles";
+import PhotoPreview from "./PhotoPreview";
 
 export default function CameraScreen({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useCameraPermissions();
+  const [hasMediaPermission, setHasMediaPermission] = MediaLibrary.usePermissions()
   const [cameraFacing, setCameraFacing] = useState("back");
+  const [photo, setPhoto] = useState(null);
+  let cameraRef = useRef();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -38,15 +41,58 @@ export default function CameraScreen({ navigation }) {
     );
   }
 
+  if (hasMediaPermission !== 'all') {
+    return (
+        <View style={styles.container}>
+          <Text style={styles.message}>
+            We need your permission to save photo to your phone
+          </Text>
+          <Button onPress={setHasMediaPermission} title="grant permission" />
+        </View>
+    );
+  }
+
   function toggleCameraFacing() {
     setCameraFacing((current) => (current === "back" ? "front" : "back"));
   }
 
+  async function takePhoto() {
+    try {
+      const photo = await cameraRef.current.takePictureAsync();
+      setPhoto(photo.uri);
+    } catch (error) {
+      console.error("take picture error", error);
+    }
+  }
+
+  function deletePhoto() {
+    setPhoto(null);
+    console.log("deleted photo");
+  }
+
+  async function savePhoto() {
+    try {
+      console.log(JSON.stringify(photo));
+      await MediaLibrary.saveToLibraryAsync(photo);
+      console.log("saved photo to library");
+    } catch (error) {
+      console.error("save photo error", error);
+    }
+    setPhoto(null);
+  }
+
+  if(photo !== null) {
+    return <PhotoPreview photoUri={photo} onSave={savePhoto} onDelete={deletePhoto} />;
+  }
+
   return (
-    <CameraView style={styles.camera} facing={cameraFacing} mode="picture">
+    <CameraView style={styles.camera} facing={cameraFacing} mode="picture" ref={cameraRef}>
       <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={takePhoto}>
+          <FontAwesome5 name="dot-circle" color="white" size={60} />
+        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-          <MaterialCommunityIcons name="camera-flip-outline" color="white" size={46} />
+          <MaterialCommunityIcons name="camera-flip-outline" color="white" size={42} />
         </TouchableOpacity>
       </View>
     </CameraView>
