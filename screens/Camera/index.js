@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import {useState, useEffect, useRef, useLayoutEffect} from "react";
 import {
   View,
   Text,
@@ -9,10 +9,19 @@ import {
 } from "react-native";
 import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
+import IconButton from "../../components/Buttons/IconButton";
+import {Colors} from "../../constants/styles";
 
-export default function CameraScreen() {
+export default function CameraScreen({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useCameraPermissions();
   const [cameraFacing, setCameraFacing] = useState("back");
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTintColor: Colors.primary800
+    });
+  }, [navigation]);
 
   if (!hasCameraPermission) {
     return <View />;
@@ -37,7 +46,7 @@ export default function CameraScreen() {
     <CameraView style={styles.camera} facing={cameraFacing} mode="picture">
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-          <Text style={styles.text}>Flip Camera</Text>
+          <MaterialCommunityIcons name="camera-flip-outline" color="white" size={46} />
         </TouchableOpacity>
       </View>
     </CameraView>
