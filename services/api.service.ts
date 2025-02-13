@@ -15,9 +15,9 @@ export async function login(email, password) {
   return await authenticate(email, password);
 }
 
-export async function getPrompt(token) {
+export async function getPrompt(token, userId) {
   const default_prompt = "a tree";
-  const url = "http://192.168.1.67:5000/prompt";
+  const url = `http://192.168.1.67:5000/prompt?userId=${userId}`;
 
   try {
     const response = await axios.get(url, {

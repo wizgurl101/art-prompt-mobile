@@ -22,6 +22,7 @@ function PromptScreen({ navigation }) {
           onPress={authCtx.logout}
         />
       ),
+      headerTintColor: Colors.primary800
     });
   }, [navigation, authCtx]);
 
@@ -29,7 +30,7 @@ function PromptScreen({ navigation }) {
     const fetchPrompt = async () => {
       setIsLoading(true);
       try {
-        const prompt = await getPrompt(authCtx.token);
+        const prompt = await getPrompt(authCtx.token, authCtx.userId);
         setPrompt(prompt);
       } catch (error) {
         console.log(error);
