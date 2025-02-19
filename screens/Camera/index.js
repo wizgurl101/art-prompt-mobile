@@ -15,7 +15,7 @@ import PhotoPreview from "./PhotoPreview";
 
 export default function CameraScreen({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useCameraPermissions();
-  const [hasMediaPermission, setHasMediaPermission] = MediaLibrary.usePermissions()
+  const [hasMediaPermission, requestMediaPermission] = MediaLibrary.usePermissions()
   const [cameraFacing, setCameraFacing] = useState("back");
   const [photo, setPhoto] = useState(null);
   let cameraRef = useRef();
@@ -41,17 +41,6 @@ export default function CameraScreen({ navigation }) {
     );
   }
 
-  if (hasMediaPermission !== 'all') {
-    return (
-        <View style={styles.container}>
-          <Text style={styles.message}>
-            We need your permission to save photo to your phone
-          </Text>
-          <Button onPress={setHasMediaPermission} title="grant permission" />
-        </View>
-    );
-  }
-
   function toggleCameraFacing() {
     setCameraFacing((current) => (current === "back" ? "front" : "back"));
   }
@@ -67,12 +56,14 @@ export default function CameraScreen({ navigation }) {
 
   function deletePhoto() {
     setPhoto(null);
-    console.log("deleted photo");
   }
 
   async function savePhoto() {
     try {
-      console.log(JSON.stringify(photo));
+      if (hasMediaPermission === null) {
+          await requestMediaPermission()
+      }
+
       await MediaLibrary.saveToLibraryAsync(photo);
       console.log("saved photo to library");
     } catch (error) {
