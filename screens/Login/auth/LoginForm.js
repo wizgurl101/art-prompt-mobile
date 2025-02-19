@@ -22,8 +22,8 @@ function LoginForm({ onSubmit, credentialsInvalid }) {
     }
   }
 
-  function submitHandler() {
-    onSubmit({
+  async function submitHandler() {
+    await onSubmit({
       email: enteredEmail,
       password: enteredPassword,
     });

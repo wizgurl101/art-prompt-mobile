@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { Alert, StyleSheet, View, Text } from "react-native";
+import { Alert, StyleSheet, View, Image, Text } from "react-native";
 import Rive from "rive-react-native";
 
 import LoginForm from "./LoginForm";
 import { Colors } from "../../../constants/styles";
 
-function AuthContent({ isLogin, onAuthenticate }) {
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
+function AuthContent({message, onAuthenticate }) {
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
     password: false,
   });
 
-  function submitHandler(credentials) {
+  async function submitHandler(credentials) {
     let { email, password } = credentials;
 
     email = email.trim();
@@ -32,25 +31,24 @@ function AuthContent({ isLogin, onAuthenticate }) {
       });
       return;
     }
-    onAuthenticate({ email, password });
+    await onAuthenticate({ email, password });
   }
 
   return (
     <>
-      <View style={styles.title}>
-        <Rive
-          url="https://public.rive.app/community/runtime-files/2195-4346-avatar-pack-use-case.riv"
-          artboardName="Avatar 1"
-          stateMachineName="avatar"
-          style={{ width: 400, height: 400 }}
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("../../../assets/art_prompt_title.png")}
+          style={styles.image}
+          resizeMethod="contain"
         />
       </View>
       <View style={styles.login}>
         <LoginForm
-          isLogin={isLogin}
           onSubmit={submitHandler}
           credentialsInvalid={credentialsInvalid}
         />
+        <Text style={styles.message}>{message}</Text>
       </View>
     </>
   );
@@ -59,23 +57,23 @@ function AuthContent({ isLogin, onAuthenticate }) {
 export default AuthContent;
 
 const styles = StyleSheet.create({
-  title: {
-    marginTop: 64,
-    marginHorizontal: 32,
-  },
-  titleText: {
-    fontSize: 42,
-    fontWeight: "bold",
-    color: Colors.primary800,
-    marginHorizontal: 92,
+  image: {
+    width: 320,
+    height: 200,
+    marginTop: 50,
+    marginHorizontal: 40,
   },
   login: {
-    marginTop: 45,
     marginHorizontal: 32,
     padding: 16,
     backgroundColor: Colors.primary100,
   },
   buttons: {
+    marginTop: 8,
+  },
+  message: {
+    textAlign: "center",
+    color: Colors.primary500,
     marginTop: 8,
   },
 });

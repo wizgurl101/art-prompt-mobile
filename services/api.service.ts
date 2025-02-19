@@ -8,9 +8,27 @@ async function authenticate(email, password) {
     password: password,
   });
 
-  return response.data.token;
+  return response.data;
 }
 
 export async function login(email, password) {
-  await authenticate(email, password);
+  return await authenticate(email, password);
+}
+
+export async function getPrompt(token, userId) {
+  const default_prompt = "a tree";
+  const url = `http://192.168.1.67:5000/prompt?userId=${userId}`;
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data.art_prompt;
+  } catch (error) {
+    console.error(error);
+    return default_prompt;
+  }
 }
