@@ -19,7 +19,7 @@
     "expo-media-library": "~17.0.5",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
-    "rive-react-native": "^8.3.0"
+    "rive-react-native": "^8.3.0",
     "react-native": "0.76.7",
     "react-native-sensitive-info": "^6.0.0-alpha.9"
   },
