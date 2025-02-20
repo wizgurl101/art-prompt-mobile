@@ -43,6 +43,14 @@ function AuthContent({message, onAuthenticate }) {
           resizeMethod="contain"
         />
       </View>
+      <View>
+        <Rive
+            url="https://public.rive.app/community/runtime-files/2195-4346-avatar-pack-use-case.riv"
+            artboardName="Avatar 1"
+            stateMachineName="avatar"
+            style={{width: 400, height: 400}}
+        />
+      </View>
       <View style={styles.login}>
         <LoginForm
           onSubmit={submitHandler}

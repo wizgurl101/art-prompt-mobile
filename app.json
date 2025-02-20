@@ -41,12 +41,6 @@
           "savePhotosPermission": "Allow art-prompt-mobile to save photos.",
           "isAccessMediaLocationEnabled": true
         }
-      ],
-      [
-        "expo-font",
-        {
-          "fonts": ["./assets/fonts/FrederickatheGreat-Regular.ttf"]
-        }
       ]
     ]
   }
